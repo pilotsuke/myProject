@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>部门管理</title>
+		<style type="text/css">
+			ul#navigation li{
+				display: inline-block;
+			}
+			div#con{
+				display: none;
+			}
+			div{
+				display: none;
+			}
+			.show{
+				display: block;
+			}
+			#queryAllResult{
+				display: block;
+			}
+			#divExportData{
+				display: block;
+			}
+			#login{
+				display: block;
+			}
+			#welcome{
+				display: none;
+			}
+			
+			
+		</style>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<!-- 登录时验证用户名 -->
+		<script type="text/javascript" src="js/checkUid.js"></script>
+		<!-- 登录操作 -->
+		<script type="text/javascript" src="js/login.js"></script>
+		<!-- 登录成功后显示用户名及权限 -->
+		<script type="text/javascript" src="js/fun.js"></script>
+		<!-- 点击事件->切换DIV内容 -->
+		<script type="text/javascript" src="js/show.js"></script>
+		<!-- 删除部门数据 -->
+		<script type="text/javascript" src="js/del.js"></script>
+		<!-- 登录检查账户是否注册 -->
+		<script type="text/javascript" src="js/check.js"></script>
+		<!-- 新建部门 -->
+		<script type="text/javascript" src="js/createdept.js"></script>
+		<!-- 修改部门数据 -->
+		<script type="text/javascript" src="js/edit.js"></script>
+		<!-- 组合查询部门信息 -->
+		<script type="text/javascript" src="js/search.js"></script>
+		<!-- 删除部门信息 -->
+		<script type="text/javascript" src="js/del.js"></script>
+		<!-- 查询 所有部门信息 -->
+		<script type="text/javascript" src="js/queryAll.js"></script>
+		<!-- 导出数据信息 -->
+		<script type="text/javascript" src="js/export.js"></script>
+		<!-- 员工入职 -->
+		<script type="text/javascript" src="js/regist.js"></script>
+		
+	</head>
+	<body >
+		<div id="login">
+			<h2>欢迎进入人力资源管理系统</h2>
+			<form onsubmit="login()">
+				用户帐号:<input type="text" id="uid" onblur="checkUid()"/><span id="tipuid"></span><br>
+				用户密码:<input type="password" id="pwd" /><br>
+				<input type="submit" value="点击登录" />
+			</form>
+		</div>
+		
+		<div id="welcome">
+			<span id="weluid"></span>您好,您的权限是:<span id="welqx"></span>
+		</div>
+		
+		
+		
+		
+		<div id="con">
+			<ul id="navigation">
+				<li onclick="show(0)" >新建部门</li>
+				<li onclick="show(1)" >修改部门</li>
+				<li onclick="show(2)" >员工入职</li>
+				<li onclick="show(3)" >查询部门下员工</li>
+			</ul>
+			
+			
+			<!--不用预先设置一个.show也可以实现-->
+			<!--<div class="show" >-->
+			<div>
+				<h3>新建部门</h3>
+				<form onsubmit="createdept()" id="createdept">
+					部门编号<input type="text" name="deptno" id="deptno" value="" placeholder="部门编号" onblur="check()" required="required"/><span id="tipdeptno"></span><br />
+					部门名称<input type="text" name="deptname" id="deptname" value="" placeholder="部门名称" onblur="check()" required="required"/><span id="tipdeptname"></span><br />
+					部门类型<input type="text" name="depttype" id="depttype" value="" placeholder="部门类型" required="required"/><br />
+					部门电话<input type="text" name="depttel" id="depttel" value="" placeholder="部门电话" onblur="check()" required="required"/><span id="tipdepttel"></span><br />
+					部门传真<input type="tel" name="deptfax" id="deptfax" value="" placeholder="部门传真" onblur="check()" /><span id="tipdeptfax"></span><br />
+					部门描述<input type="text" name="deptdesc" id="deptdesc" value="" placeholder="部门描述"/><br />
+					上级部门<input type="text" name="superiordept" id="superiordept" value="" placeholder="上级部门"/><br />
+					部门成立日期<input type="date" name="establish" id="establish" value="" placeholder="部门成立日期" required="required"/><br />
+					
+					<input type="submit" value="提交"/><br>
+					<span id="tipinsert"></span>
+				</form>
+			</div>
+			
+			
+			<div >
+				<h3>修改部门</h3>
+				<p>搜索条件</p>
+				<ul>
+					<form >
+						按部门编号查询:<input type="text"  id="searchdeptno"  /><br>
+						按部门名称查询:<input type="text"  id="searchdeptname"  /><br>
+						按部门类型查询:<input type="text"  id="searchdepttype"  /><br>
+						<input type="button" name="" id="" value="搜索" onclick="search()"/><br>
+						<input type="button" value="查询所有信息" onclick="queryAll()"/>
+					</form>
+				</ul>
+				
+					<div id="queryAllResult">
+						
+					</div>
+					
+					
+					<div id="divExportData">
+						<form action="exportDataServlet" id="form1"  method="post"   >
+							<button id="exportData"  type="button" disabled="disabled" >导出数据</button>
+						</form>
+					</div>
+				
+			</div>
+			
+			
+			<div  >
+				<h3>员工入职</h3>
+				
+					
+						<form onsubmit="regist()" id="empEntry">
+							员工号:
+							<input type="text" name="eNo" />
+							姓名:
+							<input type="text" name="eName" />
+							性别:
+							<select name="eGender">
+								<option value="boy">男</option>
+								<option value="girl">女</option>
+							</select>
+							出生日期:
+							<input type="date" name="eBirth" /><br />
+							身份证号:
+							<input type="text" name="eId" requires="requires"/>
+							部门:
+							<input type="text" name="eDept" />
+							岗位:
+							<input type="text" name="eJob" />
+							入职日期:
+							<input type="date" name="eEntry" />
+							参加工作日期:
+							<input type="date" name="eWork" /><br />
+							用工形式:
+							<select name="eFormal">
+								<option value="formal">正式员工</option>
+								<option value="temporary">临时员工</option>
+							</select>
+							人员来源:
+							<select name="eResource">
+								<option value="school">校园招聘</option>
+								<option value="social">社会招聘</option>
+								<option value="other">其他</option>
+							</select>
+							政治面貌:
+							<select name="ePolitic">
+								<option value="party">党员</option>
+								<option value="proparty">预备党员</option>
+								<option value="lmember">团员</option>
+								<option value="other">其他</option>
+							</select>
+							民族:
+							<select name="eNation">
+								<option>汉族</option>
+								<option>蒙古族</option>
+							</select>
+							联系电话:
+							<input type="tel" name="eTel" /><br />
+							电子邮件:
+							<input type="email" name="eMail" /><br />
+							身高:
+							<input type="text" name="eHeight" /><br />
+							血型:
+							<select name="eBlood">
+								<option value="a">A型</option>
+								<option value="b">B型</option>
+								<option value="ab">AB型</option>
+								<option value="o">O型</option>
+								<option value="other">其他血型</option>
+							</select><br />
+							婚姻状况:
+							<select name="eMarriage">
+								<option value="">未婚</option>
+								<option>已婚</option>
+								<option>丧偶</option>
+								<option>离婚</option>
+							</select><br />
+							籍贯:
+							<input type="text" name="eNative" /><br />
+							出生地:
+							<input type="text" name="eBirthPlace"/><br />
+							户口所在地:
+							<input type="text" name="eRPR"/><br />
+							最高学历:
+							<select name="eEdu">
+								<option value="">高中及以下</option>
+								<option>大专</option>
+								<option>本科</option>
+								<option>研究生</option>
+							</select><br />
+							最高学位:
+							<select name="eDegree">
+								<option value="">无学位</option>
+								<option>学士</option>
+								<option>双学士</option>
+								<option>硕士</option>
+								<option>博士</option>
+								<option>博士后</option>
+							</select><br />
+							毕业院校:
+							<input type="text" name="eSchool"/><br />
+							所学专业:
+							<input type="text" name="eMajor" /><br />
+							毕业日期:
+							<input type="date" name="eGraduate" /><br />
+							<input type="submit" value="提交"/><br />
+						</form>
+					
+				
+			</div>
+			
+			
+			
+			<div  >
+				<h3>查询部门下员工</h3>
+				<p>搜索条件</p>
+				<ul>
+					<form>
+						<input type="text"  placeholder="按部门编号查询"/>
+						<input type="text"   placeholder="按部门名称查询"/>
+						<input type="text"   placeholder="按部门类型查询"/>
+						<input type="button"  value="搜索" />
+					</form>
+					
+				</ul>
+			</div>
+		</div>
+		
+		
+		
+		
+	</body>
+</html>

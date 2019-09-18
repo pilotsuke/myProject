@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>已经整合进部门管理页面</title>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript">
+			function regist(){
+				event.preventDefault();
+				$.ajax({
+					type:"post",
+					url:"empEntry.do",
+					data:$("#empEntry").serialize(),
+					success:function(msg){
+						if(msg=="1"){
+							alert("插入成功");
+						}else{
+							alert("插入失败");
+						}
+					}
+				})
+			}
+			
+		</script>
+	</head>
+	<body>
+		<div id="con">
+			<form onsubmit="regist()" id="empEntry">
+				员工号:
+				<input type="text" name="eNo" />
+				姓名:
+				<input type="text" name="eName" />
+				性别:
+				<select name="eGender">
+					<option value="boy">男</option>
+					<option value="girl">女</option>
+				</select>
+				出生日期:
+				<input type="date" name="eBirth" /><br />
+				身份证号:
+				<input type="text" name="eId" requires="requires"/>
+				部门:
+				<input type="text" name="eDept" />
+				岗位:
+				<input type="text" name="eJob" />
+				入职日期:
+				<input type="date" name="eEntry" />
+				参加工作日期:
+				<input type="date" name="eWork" /><br />
+				用工形式:
+				<select name="eFormal">
+					<option value="formal">正式员工</option>
+					<option value="temporary">临时员工</option>
+				</select>
+				人员来源:
+				<select name="eResource">
+					<option value="school">校园招聘</option>
+					<option value="social">社会招聘</option>
+					<option value="other">其他</option>
+				</select>
+				政治面貌:
+				<select name="ePolitic">
+					<option value="party">党员</option>
+					<option value="proparty">预备党员</option>
+					<option value="lmember">团员</option>
+					<option value="other">其他</option>
+				</select>
+				民族:
+				<select name="eNation">
+					<option>汉族</option>
+					<option>蒙古族</option>
+				</select>
+				联系电话:
+				<input type="tel" name="eTel" /><br />
+				电子邮件:
+				<input type="email" name="eMail" /><br />
+				身高:
+				<input type="text" name="eHeight" /><br />
+				血型:
+				<select name="eBlood">
+					<option value="a">A型</option>
+					<option value="b">B型</option>
+					<option value="ab">AB型</option>
+					<option value="o">O型</option>
+					<option value="other">其他血型</option>
+				</select><br />
+				婚姻状况:
+				<select name="eMarriage">
+					<option value="">未婚</option>
+					<option>已婚</option>
+					<option>丧偶</option>
+					<option>离婚</option>
+				</select><br />
+				籍贯:
+				<input type="text" name="eNative" /><br />
+				出生地:
+				<input type="text" name="eBirthPlace"/><br />
+				户口所在地:
+				<input type="text" name="eRPR"/><br />
+				最高学历:
+				<select name="eEdu">
+					<option value="">高中及以下</option>
+					<option>大专</option>
+					<option>本科</option>
+					<option>研究生</option>
+				</select><br />
+				最高学位:
+				<select name="eDegree">
+					<option value="">无学位</option>
+					<option>学士</option>
+					<option>双学士</option>
+					<option>硕士</option>
+					<option>博士</option>
+					<option>博士后</option>
+				</select><br />
+				毕业院校:
+				<input type="text" name="eSchool"/><br />
+				所学专业:
+				<input type="text" name="eMajor" /><br />
+				毕业日期:
+				<input type="date" name="eGraduate" /><br />
+				<input type="submit" value="提交"/><br />
+			</form>
+		</div>
+	</body>
+</html>
+
